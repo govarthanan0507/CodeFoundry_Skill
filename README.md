@@ -31,6 +31,12 @@ vendor's coding agent, or a manually-driven chat session where you
 paste in the relevant `.md` files yourself — the instructions are
 plain text, not a proprietary format.
 
+**Starting a real session?** See `SHARED/SESSION_STARTUP.md` for the
+platform-specific mechanics (Claude Code CLI vs. Claude Code on the
+web) and `SHARED/STARTUP_PROMPTS.md` for ready-to-paste opening
+messages, covering a brand-new idea, an existing codebase, and
+resuming an in-progress project.
+
 ## Pipeline
 
 ```text
@@ -68,7 +74,7 @@ CodeFoundry already maintains. See `SHARED/PROJECT_TRACKING.md`.
 | `COUNCILS/<Council>/` | A multi-role debate stage (Pre-Planning: 4 roles; Design-Council: 7 roles), each role in its own file under `roles/`. |
 | `DEPARTMENTS/Developer_Organization/` | The implementation department — `CAPABILITIES/<Worker>/` holds the growable skill pool each developer worker draws on (see Capability Evolution, below). Independently shippable as its own repo later. |
 | `DEPARTMENTS/QA_Organization/` | Independent verification department, run separately from Development by design (never the same agent/session verifying its own work). Independently shippable as its own repo later. |
-| `SHARED/` | Cross-cutting protocol documents every stage depends on — handoff schema, document governance/versioning, process-scaling tiers, hard constraints, reuse/license rules, session continuity, sprint ceremonies, task tracking (`PROJECT_TRACKING.md`). |
+| `SHARED/` | Cross-cutting protocol documents every stage depends on — handoff schema, document governance/versioning, process-scaling tiers, hard constraints, reuse/license rules, session continuity, sprint ceremonies, task tracking (`PROJECT_TRACKING.md`), and how to start a session against this skill (`SESSION_STARTUP.md`, `STARTUP_PROMPTS.md`). |
 | `TESTING/` | The structural/evaluation contract used to test one unit (an agent, a council, a department) in isolation. |
 | `MANIFEST.json` | Machine-readable index of every testable unit and department root — read this before writing tooling that walks the package. |
 
