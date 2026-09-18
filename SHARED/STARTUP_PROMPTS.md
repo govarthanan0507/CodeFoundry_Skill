@@ -41,13 +41,21 @@ until Pre-Planning clears.
 
 ## Scenario 2 — An existing codebase already built
 
+`AGENTS/Ingestion/AGENT.md` has three modes: **A** (structured
+docs/explanation only, no code yet), **B** (code only, no real docs),
+**C** (both — real documentation/knowledge articles AND working code
+for the same product, e.g. `base_memory_os`, which has both an
+implementation log and actual code). Name which one applies — Mode C
+specifically makes the agent cross-check the docs against the code and
+surface disagreements, rather than trusting either alone.
+
 ### Claude Code CLI (skill already installed globally)
 
 ```
 This project (the repo I'm running you in) already has an existing
-codebase. Per CodeFoundry's routing rule, use Ingestion instead of
-Ideation — read the existing code/docs here and produce the same
-idea.md output Ideation would. Continue into Pre-Planning from there.
+codebase <and real documentation/implementation logs, if true>. Per
+CodeFoundry's routing rule, use Ingestion — Mode <A/B/C, per above> —
+instead of Ideation. Continue into Pre-Planning from there.
 ```
 
 ### Claude Code CLI (skill not yet installed globally)
@@ -57,8 +65,9 @@ Read SKILL.md from https://github.com/govarthanan0507/CodeFoundry_Skill
 and follow it as your process for this session.
 
 This project (the repo I'm running you in) already has an existing
-codebase. Use AGENTS/Ingestion/ instead of Ideation, per SKILL.md's
-routing rule. Continue into Pre-Planning from there.
+codebase <and real documentation/implementation logs, if true>. Use
+AGENTS/Ingestion/ — Mode <A/B/C, per above> — instead of Ideation, per
+SKILL.md's routing rule. Continue into Pre-Planning from there.
 ```
 
 ### Claude Code on the web
@@ -68,12 +77,13 @@ Read SKILL.md from https://github.com/govarthanan0507/CodeFoundry_Skill
 and follow it as your process. Attach that repo read-only — do not
 request or use push access to it.
 
-This project already has an existing codebase (this repo). Use
-AGENTS/Ingestion/ instead of Ideation, per SKILL.md's routing rule —
-read what's here and produce the same idea.md output, without
-re-asking me things the codebase already answers. Continue into
-Pre-Planning from there. All real changes happen in this repo, never
-in CodeFoundry_Skill.
+This project already has an existing codebase <and real documentation/
+implementation logs, if true> (this repo). Use AGENTS/Ingestion/ —
+Mode <A/B/C, per above> — instead of Ideation, per SKILL.md's routing
+rule. If Mode C: cross-check the docs against the actual code and
+report every disagreement as an open question, don't resolve them
+yourself. Continue into Pre-Planning from there. All real changes
+happen in this repo, never in CodeFoundry_Skill.
 ```
 
 ---

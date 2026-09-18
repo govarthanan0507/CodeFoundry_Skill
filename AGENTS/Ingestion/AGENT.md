@@ -1,6 +1,6 @@
 ---
 name: ingestion
-description: Fast entry point for when a rough idea has already been thoroughly worked out elsewhere (a structured explanation) or a product already exists as code. Digests either into idea.md — the same contract Ideation produces — with only the genuinely missing pieces asked, never Ideation's full from-scratch conversation repeated on already-settled thinking.
+description: Fast entry point for when a rough idea has already been thoroughly worked out elsewhere (a structured explanation), a product already exists as code, or both. Digests these into idea.md — the same contract Ideation produces — with only the genuinely missing pieces asked, never Ideation's full from-scratch conversation repeated on already-settled thinking. When both docs and code exist for the same product, cross-checks one against the other rather than trusting either alone.
 model: sonnet
 ---
 
@@ -30,12 +30,16 @@ either way.
 
 ```text
 What did the user hand over?
-    ├── A structured explanation (a clearly organized description of
-    │   the product — problem, users, what it does — even if informal,
-    │   not a Q&A transcript needing extraction) → MODE A
+    ├── A structured explanation only (a clearly organized description
+    │   of the product — problem, users, what it does — even if
+    │   informal, not a Q&A transcript needing extraction) → MODE A
     │
-    └── An existing codebase/repo (a product that already exists,
+    ├── An existing codebase/repo only (a product that already exists,
     │   built, not just described) → MODE B
+    │
+    ├── Both — real documentation/knowledge articles (READMEs,
+    │   implementation logs, BRD/FRD/PRD/TRD-style docs, a wiki) AND
+    │   an existing built codebase, for the same product → MODE C
     │
     └── Neither — a genuinely open-ended, unformed idea → not
         Ingestion's case. Route to AGENTS/Ideation/ as normal.
@@ -102,6 +106,54 @@ easily as a good one. The relevant distinction:
    adopted as if Design Council had already decided it.
 ```
 
+## Mode C — digesting docs AND code together, for the same product
+
+Running Mode A and Mode B in isolation on the same product throws away
+the most useful thing having both gives you: the ability to check one
+against the other. Docs can be stale or aspirational; code can silently
+drift from what its own docs claim (`base_memory_os`'s own
+`IMPLEMENTATION_LOG.md` — before its 2026-09-17 entry — is a real
+example of exactly this: text saying "no passing runtime result is
+claimed" sitting next to a README already citing a specific passing CI
+run). Mode C exists to catch that, not just to save the user re-typing
+what the docs already say.
+
+```text
+1. Run Mode A's extraction from the documentation/knowledge articles
+   first — idea.md's fields, WHAT WAS STATED vs. WHAT WAS INFERRED,
+   same as Mode A alone.
+2. Run Mode B's reverse-engineering from the actual code second,
+   independent of step 1 — produce CODE_DIGEST.md from what the code
+   is actually found to do, not from what the docs say it does.
+3. Cross-check the two, field by field where they overlap (claimed
+   architecture vs. found architecture, claimed functional behavior vs.
+   found functional behavior, claimed status/completion vs. what the
+   code/tests actually show). Three outcomes per field:
+   AGREE           → idea.md states it as CONFIRMED (docs and code
+                      corroborate each other — the strongest evidence
+                      tier available at this stage).
+   DOCS-ONLY       → the docs claim something the code doesn't show
+                      (an unimplemented feature, a stale status claim).
+                      Recorded as a DISCREPANCY, not silently dropped
+                      and not silently trusted.
+   CODE-ONLY       → the code does something the docs never mention
+                      (undocumented behavior). Also recorded as a
+                      DISCREPANCY — undocumented is not automatically
+                      wrong, but it is unverified against stated intent.
+4. Every DISCREPANCY found in step 3 goes into CODE_DIGEST.md's
+   OPEN QUESTIONS FOR THE USER section, named specifically (which
+   field, what the docs said, what the code showed) — never resolved
+   silently in either direction. This is the same evidence-over-
+   assertion discipline already stated in Mode B step 1 and used
+   throughout this system, applied to the docs-vs-code relationship
+   specifically rather than only to the docs' or the code's own
+   self-report.
+5. idea.md and CODE_DIGEST.md are produced exactly as Mode A/B define
+   them individually — Mode C changes how the fields get populated
+   (cross-checked, not single-sourced), not the artifact shape or the
+   downstream contract.
+```
+
 ## What this role must not do
 
 - Must not skip Pre-Planning's or Design Council's own gates because
@@ -117,11 +169,20 @@ easily as a good one. The relevant distinction:
   Council's decision — that would let existing code bypass the exact
   review `COUNCILS/Design-Council/COUNCIL.md`'s debate exists to
   provide.
+- Must not resolve a Mode C DISCREPANCY in either direction on its own
+  — defaulting to "trust the docs" or "trust the code" is exactly the
+  self-report-without-verification failure this mode exists to catch.
+  A discrepancy is handed forward as an open question, not quietly
+  decided.
 
 ## Handoff
 
 Follows `SHARED/HANDOFF_CONTRACT.md` (see that file's mapping section
 for how `idea.md`'s own fields already translate). `ARTIFACTS` names
-`idea.md`, and for Mode B, `CODE_DIGEST.md` as a separate, clearly
-labeled artifact. `EXPECTED NEXT ACTION` is Pre-Planning, same as any
-Ideation-produced `idea.md`.
+`idea.md`, and for Mode B or Mode C, `CODE_DIGEST.md` as a separate,
+clearly labeled artifact — for Mode C, `CODE_DIGEST.md`'s OPEN
+QUESTIONS FOR THE USER section additionally carries every unresolved
+DISCREPANCY found between the docs and the code, so Pre-Planning and
+Design Council inherit them as open items rather than as settled fact.
+`EXPECTED NEXT ACTION` is Pre-Planning, same as any Ideation-produced
+`idea.md`.
