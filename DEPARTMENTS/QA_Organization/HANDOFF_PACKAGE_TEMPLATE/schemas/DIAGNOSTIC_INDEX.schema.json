@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "DIAGNOSTIC_INDEX.schema.json",
+  "title": "Diagnostic Index",
+  "description": "Constitution §6 — mandatory Stage 14 output. Built for lookup FROM a production error TO what QA knew, not for reading top-to-bottom like a report. Given a stack trace or log string, this must resolve to exactly one of: a known finding, a known limitation/accepted risk, or a tested-and-passed boundary that production exceeded.",
+  "type": "object",
+  "required": ["cycle_id", "product_version", "entries"],
+  "properties": {
+    "cycle_id": {"type": "string"},
+    "product_version": {"type": "string"},
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["component", "disposition"],
+        "properties": {
+          "component": {
+            "type": "string",
+            "description": "Real file/module path, matching FINDING/EVIDENCE component tags."
+          },
+          "known_error_signatures": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Verbatim exception types / log strings / HTTP error bodies actually observed during this cycle for this component."
+          },
+          "related_finding_id": {"type": ["string", "null"]},
+          "related_risk_id": {"type": ["string", "null"]},
+          "tested_boundary_conditions": {
+            "type": "object",
+            "description": "Scale/concurrency/data-volume actually exercised for this component."
+          },
+          "known_limitations": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Explicitly NOT tested here, and why. This is what lets an incident in an unvalidated regime be identified as such immediately."
+          },
+          "assumptions_relied_on": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "disposition": {
+            "type": "string",
+            "enum": ["PASSED", "FAILED", "BLOCKED", "NOT_APPLICABLE", "DEFERRED"]
+          },
+          "reproduction_procedure_ref": {"type": ["string", "null"]}
+        }
+      }
+    }
+  }
+}

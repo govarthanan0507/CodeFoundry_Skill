@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "package": "CodeFoundry",
+  "testable_unit_roots": [
+    "AGENTS",
+    "COUNCILS"
+  ],
+  "department_roots": [
+    "DEPARTMENTS/Developer_Organization",
+    "DEPARTMENTS/QA_Organization"
+  ],
+  "shared_root": "SHARED",
+  "testing_root": "TESTING",
+  "source_archive": "codefoundry-skill (1).zip",
+  "source_gaps": [
+    "Research agent is referenced by WORKER_SCOPE_REGISTRY but absent from source archive.",
+    "Mobile Developer worker is declared built but its source worker directory is empty (see DEPARTMENTS/Developer_Organization/CAPABILITIES/Mobile-Developer/README.md)."
+  ],
+  "applied_source_updates": [
+    "STAGE_EXIT_CONTRACT.md added as SHARED/STAGE_EXIT_CONTRACT.md.",
+    "IDEATION_ENGINE.md Section 11a applied to AGENTS/Ideation/AGENT.md.",
+    "WORKERS/ renamed and repackaged as DEPARTMENTS/Developer_Organization/CAPABILITIES/, per an explicit instruction to make Developer_Organization the major, independently-packaged development block rather than an implicit part of CodeFoundry.",
+    "QA_Organization pulled in as DEPARTMENTS/QA_Organization/ for integrated testing, per an explicit instruction — temporary co-location, not the intended final architecture (each department ships as its own repo once testing validates the flow).",
+    "Full cross-reference audit performed before packaging: 510 path-like references checked against the actual filesystem. Confirmed the large majority of flagged items are expected (per-project runtime artifacts like idea.md/requirements.md/DISCOVERY.md that only exist once a real project runs, not static package files). Fixed three genuine stale references: DOCUMENT_GOVERNANCE.md's dangling `PRE_PLANNING.md` pointer, Orchestrator/SKILL.md's dangling `workflows/lifecycle.md` pointer, and HANDOFF_TO_QA.md's unqualified FINDING.schema.json path."
+  ]
+}

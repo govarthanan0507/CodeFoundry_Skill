@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "accepted_target_types": [
+    "agent",
+    "council",
+    "worker"
+  ],
+  "target_resolution": "read UNIT.json from the supplied folder",
+  "comparison": "accept one or more target folders",
+  "council_rule": "council folder is atomic; roles are internal members",
+  "metrics": [
+    "quality",
+    "success",
+    "tokens",
+    "model_calls",
+    "latency",
+    "cost",
+    "human_interventions",
+    "rework"
+  ],
+  "baseline": "matched direct underlying LLM workflow"
+}

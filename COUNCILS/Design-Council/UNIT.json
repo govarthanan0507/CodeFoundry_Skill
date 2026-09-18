@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "unit_type": "council",
+  "name": "Design Council",
+  "entrypoint": "COUNCIL.md",
+  "members": [
+    "roles/architect.md",
+    "roles/backend-architect.md",
+    "roles/data-architect.md",
+    "roles/frontend-architect.md",
+    "roles/security-architect.md",
+    "roles/ui-designer.md",
+    "roles/ux-designer.md"
+  ],
+  "dependencies": [
+    "SHARED/"
+  ]
+}

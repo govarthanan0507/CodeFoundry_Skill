@@ -1,0 +1,98 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "QA_STATE.schema.json",
+  "title": "QA Engine State",
+  "description": "The entire resumability mechanism. Any worker resumes an audit by reading this file plus the last checkpoint commit it references. No stage progress is valid unless reflected here.",
+  "type": "object",
+  "required": [
+    "qa_organization_version",
+    "cycle_id",
+    "cycle_type",
+    "product_snapshot",
+    "current_stage",
+    "stage_history",
+    "reentries",
+    "last_checkpoint_commit"
+  ],
+  "properties": {
+    "qa_organization_version": {
+      "type": "string",
+      "description": "Version of CONSTITUTION.md / ENGINE this cycle is governed by, e.g. 'V0'."
+    },
+    "cycle_id": {
+      "type": "string",
+      "description": "e.g. 'V0', 'V0-FIX-01', 'V1' — matches the HISTORY/ subtree name."
+    },
+    "cycle_type": {
+      "type": "string",
+      "enum": ["FULL_AUDIT", "FIX_VERIFICATION"]
+    },
+    "product_snapshot": {
+      "type": "object",
+      "required": ["source_repo", "commit_or_version", "acquired_at", "authorized_by"],
+      "properties": {
+        "source_repo": {"type": "string"},
+        "commit_or_version": {"type": "string"},
+        "acquired_at": {"type": "string", "format": "date-time"},
+        "authorized_by": {"type": "string"}
+      }
+    },
+    "current_stage": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 14
+    },
+    "stage_history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["stage", "disposition", "checkpoint_commit", "completed_at"],
+        "properties": {
+          "stage": {"type": "integer", "minimum": 0, "maximum": 14},
+          "disposition": {
+            "type": "string",
+            "enum": ["PASSED", "FAILED", "BLOCKED", "NOT_APPLICABLE", "DEFERRED"]
+          },
+          "reason": {
+            "type": "string",
+            "description": "Required unless disposition is PASSED."
+          },
+          "checkpoint_commit": {"type": "string"},
+          "completed_at": {"type": "string", "format": "date-time"},
+          "artifact_paths": {
+            "type": "array",
+            "items": {"type": "string"}
+          }
+        }
+      }
+    },
+    "reentries": {
+      "type": "array",
+      "description": "Records every loop-back event per ENGINE/STATE_MACHINE.md. Empty array if none occurred.",
+      "items": {
+        "type": "object",
+        "required": ["triggered_by_stage", "reentered_stage", "scope", "reason", "at"],
+        "properties": {
+          "triggered_by_stage": {"type": "integer"},
+          "reentered_stage": {"type": "integer"},
+          "scope": {
+            "type": "string",
+            "description": "What newly identified area this reentry covers — not a full stage redo."
+          },
+          "reason": {"type": "string"},
+          "at": {"type": "string", "format": "date-time"}
+        }
+      }
+    },
+    "last_checkpoint_commit": {"type": "string"},
+    "blocked": {
+      "type": ["object", "null"],
+      "description": "Non-null only if the cycle is currently halted per the fail-safe rule.",
+      "properties": {
+        "at_stage": {"type": "integer"},
+        "reason": {"type": "string"},
+        "blocked_at": {"type": "string", "format": "date-time"}
+      }
+    }
+  }
+}

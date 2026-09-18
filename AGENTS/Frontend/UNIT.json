@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0",
+  "unit_type": "agent",
+  "name": "Frontend",
+  "entrypoint": "AGENT.md",
+  "dependencies": [
+    "SHARED/"
+  ]
+}

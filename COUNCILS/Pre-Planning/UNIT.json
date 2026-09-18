@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "unit_type": "council",
+  "name": "Pre-Planning",
+  "entrypoint": "COUNCIL.md",
+  "members": [
+    "roles/Advocate.md",
+    "roles/Skeptic.md",
+    "roles/Feasibility-Cost-Assessor.md",
+    "roles/Market-Research.md"
+  ],
+  "dependencies": [
+    "SHARED/"
+  ]
+}

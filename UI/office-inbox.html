@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CodeFoundry Office Inbox</title>
+<style>
+  body { background:#14171c; color:#e6e9ee; font-family:-apple-system,Segoe UI,sans-serif; margin:0; padding:24px; }
+  .wrap { max-width:640px; margin:0 auto; }
+  h1 { font-size:14px; font-weight:600; letter-spacing:0.02em; margin:0 0 4px; }
+  .sub { font-size:12px; color:#8b93a1; margin:0 0 20px; }
+  .bar { display:flex; gap:8px; margin-bottom:20px; }
+  button { background:#2a2f38; color:#c7ccd4; border:none; border-radius:6px; padding:8px 14px; font-size:12px; cursor:pointer; }
+  button.primary { background:#4ECDC4; color:#0d1a17; font-weight:600; }
+  button:disabled { opacity:0.5; cursor:not-allowed; }
+  .status { font-size:11px; color:#8b93a1; margin-left:auto; align-self:center; }
+  .item { background:#1b1f27; border-radius:8px; padding:14px; margin-bottom:12px; }
+  .item .q { font-size:12px; color:#e6e9ee; margin:0 0 8px; }
+  .item .meta { font-size:10px; color:#8b93a1; text-transform:uppercase; letter-spacing:0.04em; margin:0 0 6px; }
+  textarea { width:100%; box-sizing:border-box; background:#0f1216; color:#e6e9ee; border:1px solid #2a2f38; border-radius:6px; padding:8px; font-size:12px; font-family:inherit; resize:vertical; min-height:50px; }
+  .empty { font-size:12px; color:#8b93a1; text-align:center; padding:40px 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>CODEFOUNDRY — OFFICE INBOX</h1>
+  <p class="sub">Open your project's inbox file once, reply here, save — Claude Code reads the same file next session. No AI runs on this page; it only reads/writes one local markdown file.</p>
+  <div class="bar">
+    <button id="openBtn">Open inbox file</button>
+    <button id="newBtn">Create new inbox file</button>
+    <button id="saveBtn" class="primary" disabled>Save replies</button>
+    <span class="status" id="status">no file open</span>
+  </div>
+  <div id="items"><div class="empty">Open or create a codefoundry-inbox.md file to see pending items.</div></div>
+</div>
+
+<script>
+let fileHandle = null;
+let items = []; // {question, reply}
+
+const statusEl = document.getElementById('status');
+const itemsEl = document.getElementById('items');
+const saveBtn = document.getElementById('saveBtn');
+
+function parseInbox(text) {
+  // Simple format: each item is "## Q: <question>" followed by "A: <reply or blank>"
+  const blocks = text.split(/^## Q: /m).filter(b => b.trim());
+  return blocks.map(b => {
+    const lines = b.split('\n');
+    const question = lines[0].trim();
+    const aLine = lines.find(l => l.startsWith('A:'));
+    const reply = aLine ? aLine.replace('A:', '').trim() : '';
+    return { question, reply };
+  });
+}
+
+function serializeInbox(items) {
+  return items.map(i => `## Q: ${i.question}\nA: ${i.reply}\n`).join('\n');
+}
+
+function render() {
+  if (!items.length) {
+    itemsEl.innerHTML = '<div class="empty">No open questions in this file right now.</div>';
+    return;
+  }
+  itemsEl.innerHTML = '';
+  items.forEach((item, idx) => {
+    const div = document.createElement('div');
+    div.className = 'item';
+    div.innerHTML = `
+      <p class="meta">open question ${idx + 1}</p>
+      <p class="q">${item.question}</p>
+      <textarea data-idx="${idx}" placeholder="type your reply...">${item.reply}</textarea>
+    `;
+    itemsEl.appendChild(div);
+  });
+  itemsEl.querySelectorAll('textarea').forEach(t => {
+    t.addEventListener('input', e => {
+      items[e.target.dataset.idx].reply = e.target.value;
+    });
+  });
+}
+
+document.getElementById('openBtn').addEventListener('click', async () => {
+  try {
+    [fileHandle] = await window.showOpenFilePicker({
+      types: [{ description: 'Markdown', accept: { 'text/markdown': ['.md'] } }]
+    });
+    const file = await fileHandle.getFile();
+    const text = await file.text();
+    items = parseInbox(text);
+    statusEl.textContent = fileHandle.name + ' open';
+    saveBtn.disabled = false;
+    render();
+  } catch (e) { statusEl.textContent = 'open cancelled'; }
+});
+
+document.getElementById('newBtn').addEventListener('click', async () => {
+  try {
+    fileHandle = await window.showSaveFilePicker({
+      suggestedName: 'codefoundry-inbox.md',
+      types: [{ description: 'Markdown', accept: { 'text/markdown': ['.md'] } }]
+    });
+    const starter = "## Q: (example) which base color should the app use — the one you're reading now is a placeholder, replace or delete it\nA: \n";
+    const writable = await fileHandle.createWritable();
+    await writable.write(starter);
+    await writable.close();
+    items = parseInbox(starter);
+    statusEl.textContent = fileHandle.name + ' created';
+    saveBtn.disabled = false;
+    render();
+  } catch (e) { statusEl.textContent = 'create cancelled'; }
+});
+
+saveBtn.addEventListener('click', async () => {
+  if (!fileHandle) return;
+  const writable = await fileHandle.createWritable();
+  await writable.write(serializeInbox(items));
+  await writable.close();
+  statusEl.textContent = 'saved to ' + fileHandle.name;
+});
+</script>
+</body>
+</html>

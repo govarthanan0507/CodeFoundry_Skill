@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0",
+  "unit_type": "worker",
+  "name": "Frontend-Developer",
+  "entrypoint": "CAPABILITY.md",
+  "identity_dependency": "../../AGENTS/Frontend/AGENT.md",
+  "dependencies": [
+    "../../SHARED/"
+  ]
+}

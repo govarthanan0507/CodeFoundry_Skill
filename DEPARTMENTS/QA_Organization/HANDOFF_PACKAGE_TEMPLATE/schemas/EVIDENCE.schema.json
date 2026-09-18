@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "EVIDENCE.schema.json",
+  "title": "Evidence Record",
+  "description": "Constitution §2, §5: no conclusion without evidence; verbatim, component-tagged.",
+  "type": "object",
+  "required": [
+    "evidence_id", "stage", "capability", "component", "procedure",
+    "expected_result", "observed_result_verbatim", "boundary_conditions",
+    "disposition", "product_version"
+  ],
+  "properties": {
+    "evidence_id": {"type": "string"},
+    "stage": {"type": "integer", "minimum": 0, "maximum": 14},
+    "capability": {"type": "string"},
+    "component": {
+      "type": "string",
+      "description": "Real file/module path or component name in the product — required for the Diagnostic Index to be usable."
+    },
+    "procedure": {
+      "type": "string",
+      "description": "Literal, re-runnable command or steps. Not a description of intent."
+    },
+    "expected_result": {"type": "string"},
+    "observed_result_verbatim": {
+      "type": "string",
+      "description": "Verbatim output/error text/stack trace. Never paraphrased (Constitution §5)."
+    },
+    "boundary_conditions": {
+      "type": "object",
+      "properties": {
+        "concurrency": {"type": ["number", "null"]},
+        "data_volume": {"type": ["string", "number", "null"]},
+        "duration": {"type": ["string", "null"]},
+        "environment": {"type": "string"}
+      }
+    },
+    "disposition": {
+      "type": "string",
+      "enum": ["PASSED", "FAILED", "BLOCKED", "NOT_APPLICABLE", "DEFERRED"]
+    },
+    "reason": {
+      "type": "string",
+      "description": "Required unless disposition is PASSED."
+    },
+    "artifact_refs": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Paths to traces, screenshots, logs, etc."
+    },
+    "product_version": {"type": "string"},
+    "recorded_at": {"type": "string", "format": "date-time"}
+  }
+}

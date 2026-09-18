@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "FINDING.schema.json",
+  "title": "Finding Record",
+  "description": "Stage 12 output. One per FAILED disposition. Root cause must be evidence-supported or explicitly marked suspected/undetermined — never asserted without support (Constitution §2).",
+  "type": "object",
+  "required": [
+    "finding_id", "component", "severity", "source_evidence_ids",
+    "reproduction_procedure", "error_signatures_verbatim",
+    "root_cause_status", "impact", "status"
+  ],
+  "properties": {
+    "finding_id": {"type": "string"},
+    "component": {
+      "type": "string",
+      "description": "Real file/module path — required for Diagnostic Index lookup."
+    },
+    "severity": {"type": "string", "enum": ["CRITICAL", "HIGH", "MEDIUM", "LOW"]},
+    "source_evidence_ids": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "reproduction_procedure": {
+      "type": "string",
+      "description": "Literal, re-runnable. Not descriptive prose."
+    },
+    "error_signatures_verbatim": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Exact exception types, log strings, HTTP error bodies observed — this is what a future production incident search will match against."
+    },
+    "assumptions_relied_on": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "What was assumed true about this component that turned out false, or that testing relied on (Constitution §5 / diagnostic traceability)."
+    },
+    "root_cause_status": {
+      "type": "string",
+      "enum": ["DETERMINED", "SUSPECTED", "NOT_DETERMINED"]
+    },
+    "root_cause": {
+      "type": "string",
+      "description": "Required if root_cause_status is DETERMINED or SUSPECTED."
+    },
+    "impact": {"type": "string"},
+    "status": {
+      "type": "string",
+      "enum": ["OPEN", "FIXED_VERIFIED", "ACCEPTED_RISK", "WONT_FIX"]
+    },
+    "accepted_by": {
+      "type": "string",
+      "description": "Required if status is ACCEPTED_RISK — per LIFECYCLE.md this must name the human, never QA itself."
+    },
+    "product_version": {"type": "string"},
+    "recorded_at": {"type": "string", "format": "date-time"}
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0",
+  "unit_type": "worker",
+  "name": "Mobile-Developer",
+  "status": "source_gap",
+  "entrypoint": null,
+  "dependencies": [
+    "../../SHARED/"
+  ],
+  "source_gap": "Original workers/mobile-developer/ directory was empty."
+}

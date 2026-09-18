@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CodeFoundry Office</title>
+<style>
+  * { box-sizing: border-box; }
+  body { background:#14171c; color:#e6e9ee; font-family:-apple-system,Segoe UI,sans-serif; margin:0; display:flex; flex-direction:column; height:100vh; }
+  .topbar { background:#191d24; padding:10px 16px; border-bottom:1px solid #262b33; display:flex; align-items:center; gap:10px; }
+  .topbar .brand { font-size:13px; font-weight:600; }
+  .topbar .rootpath { font-size:10px; color:#6b7280; margin-left:6px; }
+  .topbar button { margin-left:auto; background:#2a2f38; color:#c7ccd4; border:none; border-radius:6px; padding:6px 12px; font-size:11px; cursor:pointer; }
+  .body { flex:1; display:flex; overflow:hidden; }
+  .sidebar { width:220px; background:#191d24; border-right:1px solid #262b33; padding:12px; overflow-y:auto; flex-shrink:0; }
+  .navitem { padding:7px 8px; border-radius:6px; font-size:12px; cursor:pointer; margin-bottom:2px; }
+  .navitem.top { color:#e6e9ee; }
+  .navitem.child { padding-left:18px; font-size:11px; color:#8b93a1; }
+  .navitem.active { background:#232935; color:#e6e9ee; }
+  .navitem:hover:not(.active) { background:#20242c; }
+  .main { flex:1; display:flex; flex-direction:column; overflow:hidden; }
+  .breadcrumb { padding:12px 20px; border-bottom:1px solid #262b33; font-size:11px; color:#8b93a1; }
+  .content { flex:1; overflow-y:auto; padding:20px; font-size:12px; line-height:1.6; color:#d5d9df; }
+  .empty { text-align:center; color:#6b7280; font-size:12px; padding:80px 20px; }
+  .filerow { padding:6px 8px; border-radius:5px; font-size:11px; color:#c7ccd4; cursor:pointer; }
+  .filerow:hover { background:#20242c; }
+  .badge { font-size:9px; padding:2px 7px; border-radius:4px; background:#20242c; color:#8b93a1; margin-left:6px; }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <span style="font-size:15px;">🏭</span>
+  <span class="brand">CodeFoundry</span>
+  <span class="rootpath" id="rootpath">no root folder set</span>
+  <button id="setRoot">Set / change CodeFoundry root folder</button>
+</div>
+<div class="body">
+  <div class="sidebar" id="sidebar">
+    <div class="empty" style="padding:20px 4px;">Set your CodeFoundry root folder above. It should contain a <code>projects</code> subfolder, matching PROJECT_FOLDER_STRUCTURE.md.</div>
+  </div>
+  <div class="main">
+    <div class="breadcrumb" id="breadcrumb">CodeFoundry</div>
+    <div class="content" id="content"><div class="empty">Set the root folder to begin.</div></div>
+  </div>
+</div>
+
+<script>
+let rootHandle = null;
+let dbPromise = indexedDB.open('codefoundry-office', 1);
+dbPromise.onupgradeneeded = e => e.target.result.createObjectStore('handles');
+
+function idbGet(key) {
+  return new Promise((res) => {
+    dbPromise.onsuccess = e => {
+      const tx = e.target.result.transaction('handles', 'readonly');
+      const req = tx.objectStore('handles').get(key);
+      req.onsuccess = () => res(req.result || null);
+      req.onerror = () => res(null);
+    };
+  });
+}
+function idbSet(key, val) {
+  dbPromise.onsuccess = e => {
+    const tx = e.target.result.transaction('handles', 'readwrite');
+    tx.objectStore('handles').put(val, key);
+  };
+}
+
+async function ensurePermission(handle) {
+  const opts = { mode: 'read' };
+  if ((await handle.queryPermission(opts)) === 'granted') return true;
+  if ((await handle.requestPermission(opts)) === 'granted') return true;
+  return false;
+}
+
+async function setRoot() {
+  try {
+    const handle = await window.showDirectoryPicker();
+    rootHandle = handle;
+    idbSet('root', handle);
+    document.getElementById('rootpath').textContent = handle.name;
+    await scanRoot();
+  } catch (e) { /* cancelled */ }
+}
+
+async function scanRoot() {
+  const sidebar = document.getElementById('sidebar');
+  let projectsHandle;
+  try {
+    projectsHandle = await rootHandle.getDirectoryHandle('projects');
+  } catch (e) {
+    sidebar.innerHTML = '<div class="empty">No "projects" subfolder found in this root. Expected: &lt;root&gt;/projects/&lt;project-name&gt;/</div>';
+    return;
+  }
+  const projects = [];
+  for await (const [name, handle] of projectsHandle.entries()) {
+    if (handle.kind === 'directory') projects.push({ name, handle });
+  }
+  sidebar.innerHTML = '<div class="navitem top active" style="background:#232935;">📁 Projects</div>';
+  for (const p of projects) {
+    const div = document.createElement('div');
+    div.className = 'navitem child';
+    div.textContent = p.name;
+    div.addEventListener('click', () => openProject(p));
+    sidebar.appendChild(div);
+  }
+  if (!projects.length) {
+    sidebar.innerHTML += '<div class="empty" style="padding:12px 4px;">No project folders found yet.</div>';
+  }
+}
+
+async function openProject(p) {
+  document.getElementById('breadcrumb').textContent = `CodeFoundry / Projects / ${p.name}`;
+  const content = document.getElementById('content');
+  content.innerHTML = '';
+  const subfolders = ['documents', 'handoffs', 'state'];
+  for (const sub of subfolders) {
+    let subHandle;
+    try { subHandle = await p.handle.getDirectoryHandle(sub); }
+    catch (e) { continue; }
+    const section = document.createElement('div');
+    section.innerHTML = `<p style="font-size:11px;color:#8b93a1;text-transform:uppercase;letter-spacing:0.04em;margin:16px 0 6px;">${sub}</p>`;
+    content.appendChild(section);
+    for await (const [fname, fhandle] of subHandle.entries()) {
+      if (fhandle.kind !== 'file') continue;
+      const row = document.createElement('div');
+      row.className = 'filerow';
+      const isDocx = fname.endsWith('.docx');
+      row.innerHTML = `${fname}${isDocx ? '<span class="badge">docx — open externally</span>' : ''}`;
+      if (!isDocx) {
+        row.addEventListener('click', async () => {
+          const file = await fhandle.getFile();
+          const text = await file.text();
+          content.querySelectorAll('.filecontent').forEach(el => el.remove());
+          const pre = document.createElement('div');
+          pre.className = 'filecontent';
+          pre.style.cssText = 'white-space:pre-wrap;background:#1b1f27;border-radius:8px;padding:14px;margin-top:8px;font-size:11px;';
+          pre.textContent = text;
+          row.after(pre);
+        });
+      }
+      content.appendChild(row);
+    }
+  }
+}
+
+document.getElementById('setRoot').addEventListener('click', setRoot);
+
+// Try to reconnect to a previously-set root on load, without re-prompting
+// unless permission was revoked.
+(async () => {
+  const saved = await idbGet('root');
+  if (saved && await ensurePermission(saved)) {
+    rootHandle = saved;
+    document.getElementById('rootpath').textContent = saved.name;
+    await scanRoot();
+  }
+})();
+</script>
+</body>
+</html>

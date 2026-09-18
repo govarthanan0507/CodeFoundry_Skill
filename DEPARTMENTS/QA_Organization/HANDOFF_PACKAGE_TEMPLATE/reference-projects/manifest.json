@@ -1,0 +1,17 @@
+{
+  "$comment": "One entry per vendored reference project. Vendor the actual source into a sibling directory named after 'local_path' — do not leave this as a bare link. See 00_START_HERE.md for why.",
+  "reference_projects": [
+    {
+      "name": "",
+      "local_path": "",
+      "source_url": "",
+      "pinned_commit_or_release": "",
+      "license": "",
+      "purpose": "",
+      "relevant_capabilities": [],
+      "benchmark_scope": "",
+      "isolation_requirements": "",
+      "execution_requirements": ""
+    }
+  ]
+}
