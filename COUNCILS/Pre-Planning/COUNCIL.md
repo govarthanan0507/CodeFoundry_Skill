@@ -103,6 +103,44 @@ A **Pre-Planning decision package** — this is the BRD-equivalent content refer
 
 The package goes to the human. **Until this gate passes, the idea is not a product** — this is stated explicitly per your instruction: no PRD, no epics, no tickets exist yet at this stage. A GO here is what actually starts Planning.
 
+### How the verdict is actually presented — a conversation, not a document dump
+
+The four full documents and `DECISION_CONTRACT.md` exist and are
+real (per the Hard Rule above) — but they are not what gets put in
+front of the human first. What's presented is short and plain:
+
+```text
+Verdict: GO | GO (fast-path) | NO-GO | NEEDS MORE EVIDENCE
+<one or two sentences, in plain language, on why — no jargon dump,
+ no restating every section of every document>
+```
+
+The human is then the idea's own advocate at this point — not a
+passive approver reading a report. They respond, push back, add
+context the four roles didn't have, or argue for the idea directly.
+This is expected, not an edge case to route around: `AGENTS/Ideation/
+AGENT.md`'s own discipline (plain conversation, one thing at a time,
+no form-filling) applies here too, not just at intake.
+
+**The verdict can genuinely change from this exchange.** If the
+human's response changes the Synthesizer's own reasoning, the
+Synthesizer revises the verdict — recorded as a new, dated entry in
+`DECISION_CONTRACT.md` that references what changed and why, per
+`SHARED/DOCUMENT_GOVERNANCE.md`'s supersede-don't-overwrite rule (the
+original verdict and reasoning stay visible, not deleted). This is
+not the human overriding Pre-Planning by authority — it's new
+evidence entering the same debate the four roles already ran, same as
+any other material fact changing an assessment.
+
+Only once this settles — the human accepts the (possibly revised)
+verdict, explicitly, not by silence (per this system's standing
+"silence is never approval" rule) — does the gate actually pass. A
+`GO` settled this way is what the Orchestrator then routes into
+Planning, per the Hard Rule's enforcement above. The full four
+documents remain the actual record (linked, referenced, available to
+read in full) — the conversation is how the verdict reaches the human,
+not a replacement for what backs it.
+
 ## Hard rule — no product progression without all four documents
 
 This is a hard rule, not a stage-internal preference: **if any of the
