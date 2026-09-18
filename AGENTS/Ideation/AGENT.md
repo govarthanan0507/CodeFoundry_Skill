@@ -70,6 +70,12 @@ This prevents artificial certainty — Ideation is allowed to hand off with visi
 
 idea summary, problem, target user, intended outcome, use cases, known assumptions, known uncertainties, scope signals, personal/experimental/commercial context, open questions for the next stage — with WHAT THE USER SAID, WHAT CODEFOUNDRY INFERRED, WHAT IS CONFIRMED, WHAT IS ASSUMED, WHAT REMAINS UNKNOWN, WHAT WAS DECIDED, and WHAT THE NEXT STAGE MUST DO kept visibly distinct, not blended into one narrative.
 
+`idea.md` is written to the intake repository's `ideation/<a real,
+descriptive name>/` folder — never into a target project's own repo at
+this stage. See `SHARED/INTAKE_REPOSITORY.md` for why (a NO-GO at
+Pre-Planning should never leave debris in a real product's repo) and
+for what happens to this file on a later GO decision.
+
 ## 13. Hard boundary (unchanged from the original CodeFoundry rule)
 
 Ideation establishes problem/users/outcome/use-cases/scope/constraints/uncertainties. It does not choose React, Postgres, AWS, or any other technology — those decisions belong to the Design Council, later.

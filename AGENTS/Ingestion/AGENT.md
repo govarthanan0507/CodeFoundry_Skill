@@ -199,3 +199,9 @@ DISCREPANCY found between the docs and the code, so Pre-Planning and
 Design Council inherit them as open items rather than as settled fact.
 `EXPECTED NEXT ACTION` is Pre-Planning, same as any Ideation-produced
 `idea.md`.
+
+Both artifacts are written to the intake repository's
+`ingestion/<a real, descriptive name>/` folder, per
+`SHARED/INTAKE_REPOSITORY.md` — never into the target project's own
+repo (the one `CODE_DIGEST.md` was reverse-engineered from) at this
+stage, since Pre-Planning has not yet decided GO.

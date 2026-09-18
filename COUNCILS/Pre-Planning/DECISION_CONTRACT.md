@@ -72,3 +72,13 @@ whether the four already-defined artifacts are actually whole), not a
 new debate step and not something the Orchestrator can wave through by
 inferring completeness from silence, per the system's existing
 silence-is-never-approval rule.
+
+## Where this lives
+
+The four templates and this decision record are written to the intake
+repository's `pre-planning/<the same name used in ideation/ingestion
+for this idea>/` folder, per `SHARED/INTAKE_REPOSITORY.md` — including
+a `NO-GO` or unresolved `NEEDS MORE EVIDENCE` verdict. Nothing here is
+deleted because the idea didn't proceed; only a `GO`/`GO (fast-path)`
+verdict triggers copying these documents into the target project's own
+repo, per that same file's "What happens on GO" section.

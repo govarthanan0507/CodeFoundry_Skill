@@ -4,6 +4,11 @@
 
 **Every project gets its own new folder. Projects never share a folder or repository.** No exceptions, no "just this once for a related project" — a new idea, once it clears Pre-Planning, gets `projects/<new-project-name>/` created fresh, not appended into an existing project's space.
 
+Before Pre-Planning clears, none of this exists yet — see
+`SHARED/INTAKE_REPOSITORY.md` for where Ideation/Ingestion/Pre-Planning
+output lives instead, and why it is never written into a target
+project's own repo before a GO decision.
+
 ## Why this matters
 
 Mixing two projects' documents in one folder is exactly how a version-history tool like `office-docs.html` (or a real Confluence space) becomes unreliable — you can no longer tell which `requirements-v2.docx` belongs to which product just by looking. Isolation at the folder level is what makes every other piece (versioning, handoff logs, sign-off tracking) actually trustworthy.
