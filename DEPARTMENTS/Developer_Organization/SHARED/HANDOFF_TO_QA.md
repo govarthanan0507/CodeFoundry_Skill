@@ -72,6 +72,35 @@ test-data/, adversarial-data/
   itself; this is explicitly outside Development's authority.
 ```
 
+## The handoff is not done until it can be noticed, not just found
+
+Filling the package above and opening the PR is necessary but not
+sufficient — a handoff nobody gets woken up for is functionally the
+same as a handoff that doesn't exist until someone manually goes
+looking (the exact gap a real run of this system surfaced: work was
+pushed and correct, but QA had no way to know without being told).
+So, in the same action as opening the PR/handoff:
+
+```text
+Open the PR (or equivalent handoff artifact)
+        ↓
+Subscribe this session to that PR's activity immediately, same step
+— not a separate task, not something done "if there's time"
+        ↓
+This closes the loop for this session's own future activity on that
+PR (comments, CI, reviews arrive as wake events, no manual "go check")
+```
+
+**This only covers one direction.** Subscribing yourself means you get
+woken by what happens *to* your PR — it does not make QA's own session
+aware that the PR now exists. That half still needs an explicit
+message to whoever/whatever is running QA ("subscribe to PR #N"), or,
+once one exists, an equivalent standing mechanism on QA's own side.
+Until the loop is genuinely two-sided, treat the human as the one
+closing the QA-side half, not as an oversight — this is a real gap
+this system doesn't fully solve yet, not something to claim as solved
+because one side subscribed.
+
 Assembling this package is the Orchestrator's job (mechanics — reading
 already-tracked state into a fixed template), not a new judgment call
 by any Developer worker.
