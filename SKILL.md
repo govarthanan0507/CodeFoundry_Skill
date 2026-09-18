@@ -49,7 +49,12 @@ Idea (or a structured explanation, or existing code)
      — mandatory, blocks the next step until signed off]
   → Epic Selection (AGENTS/Product-Manager/ decomposes into epics,
      scored per SHARED/EPIC_SELECTION_CRITERIA.md)
-  → COUNCILS/Design-Council/      (7-role debate + independent critic)
+  → COUNCILS/Design-Council/      (7-role debate + independent critic,
+                                    per epic as it's picked up)
+  → [BEFORE Development starts on the first epic of V1, once per
+     project: COUNCILS/Design-Council/WHOLE_PRODUCT_ARCHITECTURE_GATE.md
+     — whole-roadmap coherence verdict across every epic in
+     ROADMAP.md, not a second per-epic debate]
   → AGENTS/Product-Owner/         (writes user stories into
                                     requirements.md, one ticket each,
                                     per SHARED/AGILE_WORKFLOW.md)

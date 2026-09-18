@@ -107,6 +107,18 @@ epic/architecture level; a single story's own scoped decision
 references back into whichever of these two documents already covers
 its epic, rather than re-deciding shared ground per story.
 
+## Whole-product check, before the very first epic's Development starts
+
+Everything above in this file evaluates one epic at a time, as it's
+picked up. Before Development starts on the *first* epic of a
+project's V1 — and only then, once per project — see
+`WHOLE_PRODUCT_ARCHITECTURE_GATE.md`: a lighter, whole-roadmap pass
+checking cross-epic coherence (does an epic's design foreclose a later
+one, do all epics point at one architectural direction, what's a named
+open question for epics too far out to design yet). This is not a
+second full debate — it does not produce `FRD.md`/`TRD.md` for epics
+that haven't been picked up — and it is never repeated per epic.
+
 ## Human gate
 
 The design package goes to the human gate before Development starts. Silence is never approval (per CodeFoundry's global gate rule). Unresolved risks stay visible in the package even after approval unless explicitly accepted.
