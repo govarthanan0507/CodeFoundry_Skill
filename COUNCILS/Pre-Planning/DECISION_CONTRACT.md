@@ -31,6 +31,23 @@ Plus the Synthesizer's own decision record:
   templates' headers, not restated differently in each
 - material disagreements and evidence used, citing the four documents
   above rather than re-deriving their content
+- **necessity verdict**: one explicit line answering "is building this
+  actually necessary" directly — distinct from, and required
+  regardless of, the GO/NO-GO/NEEDS-MORE-EVIDENCE verdict below. A
+  `NEEDS MORE EVIDENCE` overall verdict does not answer this on its
+  own (it defers the build-vs-adopt question, not the necessity
+  question) — state both even when they point different directions,
+  e.g. "necessary in principle; whether to build vs. adopt is the
+  open item."
+- **shipping/distribution intent**: must cite `idea.md`'s personal/
+  experimental/commercial context field as **CONFIRMED**, not
+  INFERRED. If that field is still only INFERRED at this point, the
+  Synthesizer asks the user directly before issuing a final verdict —
+  proceeding on an unconfirmed inference here is exactly the kind of
+  claim-without-check this system's own evidence-over-assertion
+  principle exists to catch, and it matters concretely: this signal
+  is what determines whether a license finding blocks shipping later
+  (`SHARED/REUSE_AND_LICENSE_RULE.md`).
 - verdict: GO | GO (fast-path) | NO-GO | NEEDS MORE EVIDENCE
 - reasoning for verdict
 - explicit missing evidence when undecidable

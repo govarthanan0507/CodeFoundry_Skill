@@ -60,6 +60,15 @@ What did the user hand over?
    question at a time" discipline for whatever's actually missing —
    this is not a full Ideation pass, it's the tail end of one, skipping
    the part that's already answered.
+   - The personal/experimental/commercial context field specifically:
+     if the explanation only implies this rather than stating it
+     directly, it stays labeled INFERRED, never upgraded to CONFIRMED
+     because the rest of the digest looked thorough. This field
+     determines whether a license finding blocks shipping later
+     (`SHARED/REUSE_AND_LICENSE_RULE.md`), and `COUNCILS/Pre-Planning/
+     DECISION_CONTRACT.md` requires it CONFIRMED before a final
+     verdict — an unresolved INFERRED here becomes Pre-Planning's
+     problem to ask about directly, not something to paper over now.
 4. idea.md closes at CLEAR / CLEAR WITH OPEN ITEMS / BLOCKED, same
    three-state gate as Ideation uses — a structured explanation that
    still leaves something materially unresolved is CLEAR WITH OPEN

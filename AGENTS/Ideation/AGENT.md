@@ -76,6 +76,16 @@ this stage. See `SHARED/INTAKE_REPOSITORY.md` for why (a NO-GO at
 Pre-Planning should never leave debris in a real product's repo) and
 for what happens to this file on a later GO decision.
 
+The personal/experimental/commercial context field carries real
+downstream weight — it's what `COUNCILS/Pre-Planning/DECISION_CONTRACT.md`
+uses to determine whether a license finding blocks shipping later
+(`SHARED/REUSE_AND_LICENSE_RULE.md`). If this field is left as WHAT
+CODEFOUNDRY INFERRED rather than genuinely CONFIRMED with the user,
+say so plainly in `idea.md` rather than presenting an inference with
+the same confidence as a confirmed answer — Pre-Planning is required
+to resolve it before issuing a final verdict, but it shouldn't have
+to notice the gap itself when Ideation already knows it's there.
+
 ## 13. Hard boundary (unchanged from the original CodeFoundry rule)
 
 Ideation establishes problem/users/outcome/use-cases/scope/constraints/uncertainties. It does not choose React, Postgres, AWS, or any other technology — those decisions belong to the Design Council, later.

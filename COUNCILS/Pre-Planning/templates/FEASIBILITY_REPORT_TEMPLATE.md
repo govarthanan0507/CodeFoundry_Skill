@@ -31,6 +31,17 @@ Can this be built with realistically available tools/skills/time? Name
 the single biggest technical unknown that could invalidate the estimate
 (per `roles/Feasibility-Cost-Assessor.md` Rule 3).
 
+**Hardware / infrastructure requirements (always required, never
+folded into general buildability prose):** concrete RAM, CPU/GPU, disk,
+and network needs — for building it, and separately for running it
+once built, when those differ. State it plainly enough that "can I
+actually run this on my own machine" is answerable directly from this
+section, not inferred from a "should be fine" summary. If the idea
+introduces a component with meaningfully different hardware needs than
+the rest of the stack (e.g. an embedding or inference model alongside
+a lightweight CLI), name that component's requirements separately
+rather than averaging them into one vague figure.
+
 ### 2. Economic feasibility — cost at multiple scale points
 - Personal / low-usage cost estimate
 - Realistic growth-scenario cost estimate
