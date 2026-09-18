@@ -257,6 +257,51 @@ BLOCKED              — a Phase 1 item is fundamentally incompatible
                        decision (routes per HARD_CONSTRAINTS.md).
 ```
 
+## Direction-change pushback — distinct from Phase 2's feasibility pushback
+
+A real gap, found live: Phase 2's pushback rule above only covers
+*feasibility* (can this be built within budget/timeline/platform
+constraints). It says nothing about a different, equally real case —
+the user redirects mid-conversation not with new information filling
+a gap, but with a **material reversal or expansion of a decision this
+process already treated as settled and built against** (e.g. a
+visual/architecture direction already implemented gets discarded for
+a substantially different one, or new capabilities get folded in that
+were never part of the story's original scope). Silently complying
+with this the same way Phase 1 accepts ordinary new input is wrong —
+it treats a real direction change as if it cost nothing, when it may
+discard working code, reopen a closed decision, or quietly expand
+scope no one has actually agreed to pay for.
+
+**The rule**: whenever participating roles recognize input as this
+kind of direction change (not merely a preference on something still
+open), they say so explicitly, in the same polite, constructive tone
+Phase 2 already requires — name what's changing, what already-decided
+or already-built work it affects, and confirm the user actually wants
+that trade-off before treating it as accepted. This is a *pushback*,
+not a refusal: the answer is very often still "yes, do it anyway" —
+the point is that the user hears the real cost stated plainly and
+chooses it knowingly, rather than the process pivoting silently as if
+nothing of substance changed.
+
+```text
+Bad (silent pivot):    User asks for a different UI framework/style.
+                        Council immediately starts redesigning, no
+                        mention that this discards the shell already
+                        built against the prior decision.
+
+Good (named, polite):  "Sure — that means redoing the chat shell we
+                        already built against the earlier decision,
+                        not just restyling it. Want me to go ahead
+                        with that?"
+```
+
+This applies at any point in the conversation, not only inside a
+formal Phase 2 verification pass — a direction change can surface
+mid-Phase-1, mid-build, or in an entirely separate later conversation
+about the same story. Wherever it's recognized, it gets named before
+being acted on.
+
 ## Output — `DISCOVERY.md`, one fixed template, not improvised per story
 
 The full required shape lives in `templates/DISCOVERY_TEMPLATE.md` —
