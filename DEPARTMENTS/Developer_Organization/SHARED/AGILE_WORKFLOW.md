@@ -34,6 +34,20 @@ TICKET
                   holding it — never blank while status is IN PROGRESS
                   or IN REVIEW>
   version:       <which increment/release this ticket belongs to>
+  branch:        <the feature branch this ticket's code actually lives
+                  on, created off an up-to-date main per
+                  AGENTS/Git-Maintainer/AGENT.md — required before this
+                  ticket may move to IN PROGRESS. A ticket with no
+                  branch recorded has nowhere its work is allowed to
+                  land; work happening directly on main is the same
+                  violation as a worker marking itself DONE without
+                  evidence, not a shortcut this field waives.>
+  pr_url:        <the pull request this branch's changes go through —
+                  required before this ticket may move to IN REVIEW.
+                  This is what QA_Organization (or, for a Tier 1 task,
+                  the human gate) actually reviews per
+                  DEPARTMENTS/Developer_Organization/SHARED/HANDOFF_TO_QA.md
+                  — a ticket has no reviewable form without it.>
   started_at / moved_at: <timestamp of each column transition, kept as
                   history, not overwritten — same "nothing overwritten"
                   discipline as everywhere else>
@@ -69,14 +83,21 @@ IN PROGRESS  — a Developer worker is actively on it (assignee required).
                ticket may not move here until its per-story Discovery
                record is CLEAR or CLEAR WITH OPEN ITEMS. A BLOCKED
                Discovery keeps the ticket in TO DO, not started anyway.
-               Enforced by the Orchestrator reading the actual
-               `DISCOVERY.md` file directly (`AGENTS/Orchestrator/
-               AGENT.md`'s ticket progression gate) — not inferred
-               from the assigned worker saying Discovery is done.
+               Also gated on `branch` being populated (a real feature
+               branch off up-to-date main must exist first) — per
+               `AGENTS/Git-Maintainer/AGENT.md`'s Rule 1, no ticket's
+               code is ever written directly on main, "small" is not
+               an exception. Enforced by the Orchestrator reading the
+               actual `DISCOVERY.md` file and the ticket's `branch`
+               field directly (`AGENTS/Orchestrator/AGENT.md`'s ticket
+               progression gate) — not inferred from the assigned
+               worker saying Discovery is done or a branch exists.
 IN REVIEW    — implementation done, awaiting the worker's own
                completion-contract checks or independent review
                (QA/Security, per PROCESS_SCALING.md's review-triggering
-               rule) — not yet DONE
+               rule) — not yet DONE. Also gated on `pr_url` being
+               populated — a ticket with code changes but no open PR
+               is not actually reviewable and stays in IN PROGRESS.
 DONE         — completion contract satisfied, evidence recorded.
                Enforced by the Orchestrator independently checking
                `verification_evidence` is actually populated before
