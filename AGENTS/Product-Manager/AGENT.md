@@ -88,6 +88,49 @@ Once epics are decomposed, which ones make this release is decided by
 confidence/impact, MoSCoW label) — this role runs that process, it does
 not invent a competing one.
 
+## Required: a versioned roadmap, not just this release's selection
+
+Running `EPIC_SELECTION_CRITERIA.md` answers "what's in *this*
+release" — MUST/SHOULD/COULD/WON'T HAVE. It does not, by itself,
+answer "when do the SHOULD/COULD HAVE epics actually happen." A real
+run of this system produced only the single-release selection and
+stopped there, leaving every epic beyond the current release
+floating with a MoSCoW label and no target version — a real gap, not
+a stylistic omission.
+
+**This role must also produce `ROADMAP.md`**, sequencing every epic
+(not only this release's) into a version: `V1`, `V2`, `V3`, etc. —
+using the same MoSCoW/dependency reasoning `EPIC_SELECTION_CRITERIA.md`
+already produced, not a new judgment call:
+
+```text
+MUST HAVE epics           → V1 (this release)
+SHOULD HAVE epics         → next version they have no unmet
+                             dependency for (usually V2, but a
+                             SHOULD HAVE blocked on a COULD HAVE's
+                             output waits for it, same dependency
+                             logic as Step 5)
+COULD HAVE epics          → the version after their dependencies
+                             land, named explicitly, not "later"
+WON'T HAVE (this release) → explicitly marked NOT YET VERSIONED —
+                             per EPIC_SELECTION_CRITERIA.md's own
+                             rule, these are revisited at the next
+                             epic-selection pass, not silently
+                             dropped from the roadmap either
+```
+
+**What this roadmap must never contain: a duration or a date.**
+Per `DEPARTMENTS/Developer_Organization/SHARED/PROJECT_TIMELINE.md`'s
+existing, explicit rule, Product Manager/Product Owner do not
+estimate duration — they don't know implementation complexity. This
+roadmap answers *which version an epic belongs to and why*
+(sequencing, dependency-driven), never *how long it will take* or
+*when it starts* — those come later, from Design Council (at scoping
+time) and Development (once building), into `PROJECT_TIMELINE.md`'s
+own DURATION/START/FINISH fields. A roadmap epic that already has
+those fields filled in is out of process — this role is not the
+source for them.
+
 ## Interaction budget — near-autonomous, one escalation path, no direct user questions
 
 By this stage, almost everything needed already exists upstream —
@@ -128,6 +171,8 @@ around the mechanism that already exists for this.
 
 - epic decomposition (the splitting discipline above)
 - epic selection for this release (running `EPIC_SELECTION_CRITERIA.md`)
+- the versioned roadmap (`ROADMAP.md`) sequencing every epic, not
+  only this release's, into a named version — never a duration or date
 - the Pre-Planning verdict record
 - handing off a finalized epic list to the Product Owner, one epic at a
   time or as a batch, each carrying its MoSCoW label and reasoning
