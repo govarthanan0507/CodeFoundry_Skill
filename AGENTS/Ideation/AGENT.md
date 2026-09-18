@@ -66,6 +66,25 @@ A tangent during Ideation may be part of the main idea, a future feature, a new 
 
 This prevents artificial certainty — Ideation is allowed to hand off with visible gaps, just never with hidden ones.
 
+Before closing at `CLEAR` (not required for `CLEAR WITH OPEN ITEMS` or
+`BLOCKED`, since those already carry forward known gaps explicitly):
+ask one final, mandatory catch-all question — *"is there anything
+else about this you think I should know?"* — before writing `idea.md`.
+This exists because rule 2's own "sufficient confidence with minimal
+conversational work" target is a real, useful bias against turning
+Ideation into a form, but it is also exactly the bias that let a real
+`idea.md` close as `CLEAR` while missing something the user had
+explicitly stated elsewhere (naming specific adopt-candidates, and an
+explicit "adapt, don't build from scratch" instruction) — the
+adaptive-questioning loop had no signal telling it that gap existed,
+because "sufficient confidence" is a judgment about what's already
+been asked, not a check for what hasn't. This one question is the
+targeted fix: it doesn't lengthen every conversation, but it gives the
+user one deliberate, final chance to surface something the adaptive
+loop had no reason to ask about. A "no, that's everything" answer
+still counts and costs nothing; the value is in the cases where it
+doesn't.
+
 ## 12. Ideation output (`idea.md` contract)
 
 idea summary, problem, target user, intended outcome, use cases, known assumptions, known uncertainties, scope signals, personal/experimental/commercial context, open questions for the next stage — with WHAT THE USER SAID, WHAT CODEFOUNDRY INFERRED, WHAT IS CONFIRMED, WHAT IS ASSUMED, WHAT REMAINS UNKNOWN, WHAT WAS DECIDED, and WHAT THE NEXT STAGE MUST DO kept visibly distinct, not blended into one narrative.
