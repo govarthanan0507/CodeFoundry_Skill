@@ -35,13 +35,22 @@ STEP 3 — Constraint check
 STEP 4 — Feasibility check
    Reuses Pre-Planning's Feasibility & Cost Assessor findings for
    this specific epic, not a fresh assessment — is it actually
-   buildable at the skill/time level available right now?
+   buildable at the skill/time level available right now? If this
+   project came in through Ingestion Mode B/C, this step also reads
+   `SHARED/EXISTING_CODE_AUDIT_GATE.md`'s per-component verdicts for
+   whatever this epic depends on — a component marked `REWORK` or
+   `REPLACE` is not "feasible as-is," and one still `UNKNOWN — NEEDS
+   MORE EVIDENCE` cannot be scored feasible at all until the audit
+   resolves it.
 
 STEP 5 — Dependency check
    Does another must-have epic depend on this one existing first
    (e.g. core streaming playback has to exist before "continue
    watching" does)? An enabling epic can outrank a more exciting
-   user-facing one for this reason alone.
+   user-facing one for this reason alone. A `REWORK`/`REPLACE`
+   verdict from the audit gate above is itself a dependency of this
+   kind — the rework it implies is the prerequisite, not a detail to
+   note in passing.
 
 STEP 6 — Confidence and impact scoring
    For each epic that survives Steps 1-5:

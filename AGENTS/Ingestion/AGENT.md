@@ -104,6 +104,13 @@ easily as a good one. The relevant distinction:
    confirmed or revised through the normal Change-Request-shaped
    scrutiny (`COUNCILS/Design-Council/COUNCIL.md`), never auto-
    adopted as if Design Council had already decided it.
+6. Producing a `CODE_DIGEST.md` also triggers
+   `SHARED/EXISTING_CODE_AUDIT_GATE.md` — mandatory, and it blocks
+   Epic Selection specifically, not this stage's own handoff. This
+   step still completes and hands off normally; the gate is the next
+   stage's problem to satisfy before it may proceed, same as any
+   other downstream gate this role is not responsible for enforcing
+   itself.
 ```
 
 ## Mode C — digesting docs AND code together, for the same product
@@ -151,7 +158,13 @@ what the docs already say.
 5. idea.md and CODE_DIGEST.md are produced exactly as Mode A/B define
    them individually — Mode C changes how the fields get populated
    (cross-checked, not single-sourced), not the artifact shape or the
-   downstream contract.
+   downstream contract. Mode B's rule on `SHARED/EXISTING_CODE_AUDIT_GATE.md`
+   applies unchanged — a Mode C `CODE_DIGEST.md` triggers the same
+   mandatory gate before Epic Selection, whether or not this cycle's
+   docs-vs-code cross-check found any DISCREPANCY. A clean cross-check
+   confirms the *documentation's* claims match the code; it says
+   nothing about whether the code itself is sound enough to build on
+   — the audit gate is what answers that, and it still runs.
 ```
 
 ## What this role must not do

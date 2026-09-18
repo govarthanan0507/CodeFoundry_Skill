@@ -45,8 +45,14 @@ cross into.
 Idea (or a structured explanation, or existing code)
   → AGENTS/Ideation/  or  AGENTS/Ingestion/  (same idea.md output)
   → COUNCILS/Pre-Planning/        (4-role debate + decision)
-  → Epic Selection
+  → [IF Ingestion produced CODE_DIGEST.md: SHARED/EXISTING_CODE_AUDIT_GATE.md
+     — mandatory, blocks the next step until signed off]
+  → Epic Selection (AGENTS/Product-Manager/ decomposes into epics,
+     scored per SHARED/EPIC_SELECTION_CRITERIA.md)
   → COUNCILS/Design-Council/      (7-role debate + independent critic)
+  → AGENTS/Product-Owner/         (writes user stories into
+                                    requirements.md, one ticket each,
+                                    per SHARED/AGILE_WORKFLOW.md)
   → DEPARTMENTS/Developer_Organization/  (implementation — the major
                                     Frontend/Backend/Mobile block)
   → DEPARTMENTS/QA_Organization/   (independent verification —
