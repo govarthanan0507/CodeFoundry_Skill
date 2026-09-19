@@ -17,7 +17,7 @@ Take the approved product and planning package and decide exactly how the produc
 5. `roles/backend-architect.md` — Backend/API Architect
 6. `roles/data-architect.md` — Data/Database Architect
 7. `roles/security-architect.md` — Security/Reliability Architect
-8. `roles/product-manager.md` — Product Manager (product structure, epic decomposition, version boundaries)
+8. `roles/product-manager.md` — Product Manager (product structure, epic decomposition, version boundaries, PRD.md)
 
 Each role file defines: what a genuinely senior person in that discipline is evaluated on, what they own, what they must not decide (another role's territory), and their escalation duty after handoff. The Product Manager is a product-structure role, not an additional architect: it owns capability-to-epic decomposition, product/version boundaries, prioritization, and traceability while respecting the specialist roles' design authority.
 
