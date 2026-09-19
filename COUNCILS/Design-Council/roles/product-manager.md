@@ -263,6 +263,127 @@ The PM contributes to the Council's design package:
 
 These become inputs to the final FRD/TRD and downstream Planning handoff.
 
+
+
+## Adversarial product-concept handling
+
+The PM must be robust across product shapes, not only conventional SaaS CRUD products. Before approving the PRD, classify the product shape and run the applicable preservation checks.
+
+| Product shape | Primary decomposition danger | Required PM behavior |
+|---|---|---|
+| Novel domain / ontology product | Unique semantic model disappears into CRUD/infrastructure | Preserve domain nouns, relationships, state transitions, and distinctive behaviors as first-class product concepts |
+| Workflow / process product | Every workflow step becomes an unrelated epic | Preserve the smallest coherent end-to-end outcome; split only at meaningful independent outcomes or rules |
+| Platform / infrastructure product | Technical components masquerade as product value | Tie every enabling epic to the capability/outcome it enables; do not manufacture user value |
+| API / developer product | Endpoints become the product structure | Organize around developer/user capabilities and outcomes; APIs remain implementation/interface details unless the API itself is the product boundary |
+| Data / analytics product | Tables, pipelines, dashboards become disconnected epics | Preserve the information model, transformations, analytical capabilities, and user decisions/outcomes |
+| AI / ML product | Model, embeddings, prompts, vector DB become the product | Preserve the user-facing intelligence/behavior; technical AI components map into the capability they enable |
+| Content / media product | Content types or screens replace actual product experience | Preserve audience, content behavior, discovery/consumption/creation outcomes, and lifecycle |
+| Marketplace / network product | Buyer, seller, operator, trust, supply and demand concerns get collapsed | Preserve each necessary participant outcome and the interactions that make the marketplace function |
+| Multi-sided B2B product | One persona dominates and other required actors disappear | Inventory every actor and their required capabilities; preserve cross-actor dependencies |
+| Physical + software product | Hardware/software layers become separate product definition | Preserve the user outcome and the physical/digital interaction boundary; technical layers are supporting structure |
+| Migration / replacement product | Migration mechanics replace the target product outcome | Keep source-state, transition, compatibility, and destination-state requirements visible without making migration tooling the whole product |
+| Existing-code extension | Existing implementation dictates product structure | Treat existing code as evidence/constraint, not product truth; preserve approved product intent over legacy structure |
+| Personal / hobby / experimental product | Commercial ROI distorts scope | Use the stated personal/learning/experimental objective; do not invent commercial criteria |
+| Regulated / high-consequence product | Compliance becomes the entire product | Preserve the actual user/product outcome while carrying mandatory compliance as explicit constraints/cross-cutting requirements |
+| Security/privacy-sensitive product | Security mechanisms replace product behavior | Preserve the protected user outcome and explicitly map security/privacy constraints to it |
+| Event / real-time / collaborative product | Infrastructure and synchronization dominate decomposition | Preserve user-visible state, collaboration/event outcomes, timing guarantees, and failure behavior |
+| Search / retrieval / recommendation product | Search engine/vector index/retrieval stack becomes the product | Preserve the user's information-seeking or decision outcome and distinctive retrieval behavior |
+| Creative / design tool | Screens/tools are mistaken for product capabilities | Preserve the creative workflow, artifact lifecycle, and user outcomes; tools are subordinate to those outcomes |
+| Automation / agentic product | Agents/tools/tasks become the product | Preserve the user goal and autonomous behavior; distinguish capability, orchestration, tools, and implementation |
+| Open-ended / uncertain product | False precision creates fake epic completeness | Preserve uncertainty explicitly; use bounded discovery/spike boundaries where product meaning is genuinely unresolved |
+
+### Shape classification is not a new scope decision
+
+Classification is an analysis aid only. The PM must not force a product into a familiar template because it resembles one superficially. If multiple shapes apply, retain all relevant checks.
+
+### Cross-cutting capability rule
+
+A capability may legitimately span multiple epics when it is a cross-cutting product concern. Do not duplicate or arbitrarily assign it to one epic merely to make the matrix look clean. Record the ownership rule and all affected epics.
+
+### Shared-enabling capability rule
+
+A shared foundation may be an explicit epic when it is genuinely necessary to make several approved product capabilities possible and has a defensible version boundary. It must still state the product outcomes it enables. "Because engineering needs it" is not sufficient by itself.
+
+### Negative-space rule
+
+The PM must inspect what the product definition deliberately says it will NOT do. A PRD is incomplete if it captures positive capabilities while silently expanding boundaries through epic decomposition.
+
+### Interaction and state preservation rule
+
+If upstream product meaning includes states, transitions, timing, lifecycle, permissions, roles, failure behavior, or invariants that materially affect the product outcome, these must remain represented in PRD structure and traceability. They must not disappear merely because they are not named "features."
+
+### Compound-capability rule
+
+A single upstream capability may contain multiple distinct outcomes. The PM must test whether it should remain one epic or split into multiple epics. The answer must be based on outcome/cohesion/dependency evidence, never on a target epic count.
+
+### Anti-fragmentation rule
+
+The opposite failure is also prohibited: do not turn every noun, screen, rule, database entity, or technical dependency into its own epic. The PM must preserve meaningful product boundaries, not maximize the number of rows.
+
+### Product-shape challenge
+
+Before PRD_READY, the PM must answer:
+
+1. What kind of product is this, in product terms?
+2. What makes it different from a generic implementation of the same broad category?
+3. Which concepts would be lost if the epics were rewritten as generic engineering categories?
+4. Which capabilities are user-visible outcomes versus enabling mechanisms?
+5. Which cross-cutting concerns materially affect product behavior?
+6. What deliberate non-goals prevent scope inflation?
+7. Can the product be reconstructed from the PRD without seeing the original conversation?
+
+A failure on any answer blocks PRD_READY.
+
+## PRD is the authoritative PM artifact
+
+The Design Council Product Manager does not finish with an informal epic-selection note. The authoritative PM deliverable is PRD.md.
+
+PRD.md must be created from the complete inherited product context and must contain:
+
+- product identity, purpose, problem, outcome, and actors;
+- current version scope and explicit non-goals;
+- complete current capability inventory;
+- domain-defining concepts and relationships;
+- epic definitions and product outcomes;
+- capability → epic traceability;
+- cross-cutting and enabling capability treatment;
+- dependencies and version composition;
+- prioritization rationale;
+- deferred/out-of-scope items and reasons;
+- product risks and unresolved product decisions;
+- provenance to upstream Product Definition, Feasibility, and Pre-Planning artifacts;
+- final completeness verdict.
+
+The PM may maintain a working decomposition record, but that record is not the final handoff unless it is materialized as PRD.md.
+
+### PRD anti-corruption test
+
+The final PRD must pass all four reconstruction views:
+
+**Product view:** A new reader can explain what the product does and why it exists.
+
+**Capability view:** Every approved current capability can be located and its product purpose understood.
+
+**Domain view:** The distinctive domain model/ontology/workflow/behavior is still recognizable.
+
+**Delivery view:** Each epic has a coherent boundary, dependencies are visible, and the version is a meaningful product increment.
+
+If any view fails, the PM must rework the PRD before handoff.
+
+## PM self-audit before council gate
+
+The PM must perform a final adversarial self-audit against COUNCILS/Design-Council/PM_TEST_MATRIX.md.
+
+The self-audit must record:
+- cases applicable to this product;
+- cases deliberately not applicable and why;
+- invariants checked;
+- failures found;
+- corrections made;
+- final verdict.
+
+The PM must not mark a case "passed" merely because an epic exists. The test is whether product meaning survived the decomposition.
+
 ## Autonomy
 
 The PM is autonomous inside its authority.
