@@ -8,7 +8,7 @@ Every other stage depends on this one being right. Ideation can be vague and get
 
 Take the approved product and planning package and decide exactly how the product should be shaped and built — then remain the accountable authority for that decision through Development, not just its author.
 
-## Membership (7 senior roles)
+## Membership (7 senior design roles + Product Manager)
 
 1. `roles/architect.md` — System/Product Architect
 2. `roles/ux-designer.md` — UX Designer
@@ -17,8 +17,9 @@ Take the approved product and planning package and decide exactly how the produc
 5. `roles/backend-architect.md` — Backend/API Architect
 6. `roles/data-architect.md` — Data/Database Architect
 7. `roles/security-architect.md` — Security/Reliability Architect
+8. `roles/product-manager.md` — Product Manager (product structure, epic decomposition, version boundaries)
 
-Each role file defines: what a genuinely senior person in that discipline is evaluated on, what they own, what they must not decide (another role's territory), and their escalation duty after handoff.
+Each role file defines: what a genuinely senior person in that discipline is evaluated on, what they own, what they must not decide (another role's territory), and their escalation duty after handoff. The Product Manager is a product-structure role, not an additional architect: it owns capability-to-epic decomposition, product/version boundaries, prioritization, and traceability while respecting the specialist roles' design authority.
 
 ## What makes a role "hardened"
 
@@ -79,6 +80,13 @@ observable behavior, still technology-agnostic):
   not re-invent them)
 - design risks and unresolved issues, explicitly — not smoothed over
 
+**Epic Structure / Selection record** (product structure — what the version is made of):
+- capability-to-epic mapping and complete traceability;
+- epic boundaries and rationale;
+- dependencies and enabling epics;
+- version/iteration grouping and explicit deferrals;
+- unresolved product-structure questions.
+
 **`TRD.md`** (Technical Requirements — how it's actually built):
 - architecture overview and decisions, with tradeoffs and rejected
   alternatives
@@ -100,7 +108,7 @@ observable behavior, still technology-agnostic):
 - integration points, environment, hosting/platform decision
   (consulting `TECH_REFERENCE_LIBRARY.md`), and deployment assumptions
 
-Both documents together are what a story's Discovery/debate output
+The Epic Structure / Selection record is the product-structure bridge into the two design documents. Both FRD and TRD, together with the epic structure, are what a story's Discovery/debate output
 (`DISCOVERY_PROTOCOL.md`, `DEBATE_PROTOCOL.md`) resolves to at the
 epic/architecture level; a single story's own scoped decision
 (Discovery's `DISCOVERY.md`) is the same shape at a narrower grain and
