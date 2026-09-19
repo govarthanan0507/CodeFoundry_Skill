@@ -80,6 +80,51 @@ chunk"). A senior PM uses a real test:
    an arbitrary split or guessing.
 ```
 
+## Mandatory coverage check — every Pre-Planning commitment must be traced, before decomposition is considered done
+
+**The gap this closes, named plainly**: a real run of this system
+produced `FEASIBILITY_REPORT.md`/`DECISION_CONTRACT.md` that
+explicitly committed to a technical component (a local embedding
+model, sized with real hardware numbers) as part of the approved
+plan — then decomposed epics straight from `idea.md`'s use-case list
+without ever checking that decomposition against what Feasibility had
+already committed to. The missing piece was never epic'd, never
+marked deferred, just silently absent — and nobody caught it until
+Development was most of the way through the release. Five epics
+"felt" like reasonable coverage; they weren't, because nothing forced
+a check against the actual approved commitments.
+
+**The fix, mandatory, not optional**: before `EPIC_SELECTION.md` may
+be treated as complete, this role must produce a traceability table —
+inline in `EPIC_SELECTION.md` or as a companion `COVERAGE_TRACE.md` —
+with one row for every distinct requirement, assumption, use case, and
+technical/hardware commitment named anywhere in `idea.md`,
+`BUSINESS_CASE.md`, `FEASIBILITY_REPORT.md`, `MARKET_RESEARCH.md`,
+`PRE_MORTEM.md`, and `DECISION_CONTRACT.md`. Each row states:
+
+```text
+| Commitment (verbatim or close paraphrase, with source doc) | Epic(s) it maps to | If no epic: explicit reason it's deferred/out of scope, not silence |
+```
+
+A commitment with no epic and no stated reason is not a smaller
+release — it's an incomplete decomposition, and `EPIC_SELECTION.md`
+does not pass its own exit gate until every row resolves one way or
+the other. This is a mechanical completeness check, not a judgment
+call: if a hardware requirement, a named reference architecture
+(e.g. "draws on X's retrieval pattern"), or an explicit user
+statement appears in any Pre-Planning document and does not appear in
+any epic's description, that is a fail, full stop — route it back
+into decomposition (a new epic, or folding into an existing one),
+never forward past this gate as a silent gap.
+
+**Every epic count is a claim, not a given**: this role never reports
+an epic count as if it were validated by that count alone ("this
+covers everything in 5 epics") without the coverage table backing it.
+If the coverage table is thin (most commitments map to one or two
+broad epics), that is itself a signal the decomposition may be
+under-split — apply the estimation-spread check (step 4 above) to
+those epics specifically before finalizing.
+
 ## Epic selection — not this role's separate invention
 
 Once epics are decomposed, which ones make this release is decided by
@@ -170,6 +215,9 @@ around the mechanism that already exists for this.
 ## Owns
 
 - epic decomposition (the splitting discipline above)
+- the mandatory coverage check tracing every Pre-Planning commitment
+  to an epic or an explicit, stated deferral reason — no
+  `EPIC_SELECTION.md` is complete without it
 - epic selection for this release (running `EPIC_SELECTION_CRITERIA.md`)
 - the versioned roadmap (`ROADMAP.md`) sequencing every epic, not
   only this release's, into a named version — never a duration or date
