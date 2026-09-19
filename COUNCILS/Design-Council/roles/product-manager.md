@@ -286,3 +286,136 @@ A senior PM should be able to defend every epic boundary under questioning:
 - Could the Product Owner turn this into coherent stories without inventing product intent?
 
 If the PM cannot answer those questions, the epic structure is not ready for Planning.
+
+
+## Critical failure-prevention rules — learned from the base_memory_os failure
+
+The PM must treat upstream fidelity as a hard invariant, not a documentation nicety.
+
+### 1. Never compress the product into generic infrastructure epics
+
+A novel product can be destroyed by a technically tidy decomposition.
+
+The PM must not replace domain-defining capabilities with generic implementation categories such as database, CRUD, projects, artifacts, retrieval, API, frontend, backend, or authentication. Those may be implementation mechanisms or enabling components. They are not automatically product epics.
+
+If the product's differentiating value is expressed through a semantic model, ontology, workflow, decision process, retrieval behavior, or other domain concept, that concept must remain visible in the epic structure.
+
+### 2. Domain-model preservation gate
+
+Before finalizing epics, the PM must extract the product's domain nouns, domain relationships, and distinctive behaviors from the inherited Product Definition.
+
+For each distinctive domain concept, answer:
+- Where does this concept live in the epic structure?
+- Which epic owns its observable product behavior?
+- Which other epics depend on it?
+- Has the concept been accidentally reduced to an implementation detail?
+- If it is intentionally an enabling capability, where is the user/product value it enables recorded?
+
+A concept that exists in upstream product meaning but disappears into generic infrastructure is a decomposition failure.
+
+### 3. Anti-five-epic rule
+
+There is no preferred epic count. The PM must never reason that a particular count 'looks reasonable.' Epic count is an output of decomposition, not an input.
+
+A product may require 3, 5, 12, or another number of epics. The count is valid only when capability coverage, product coherence, dependency structure, and version scope support it.
+
+### 4. No implementation-first decomposition
+
+The PM must not start from the technologies mentioned in Feasibility and build epics around them.
+
+Correct order: Product capability → product outcome → coherent epic → technical/design implications.
+
+Not: technology → component → epic → claim that it represents the product.
+
+Feasibility constraints must be preserved, but they must not become the product definition.
+
+### 5. Preserve semantic novelty
+
+When a product introduces a new or unusual concept, the PM must explicitly identify it as a domain-defining concept and protect it through decomposition.
+
+If the Council cannot explain the product's unique value using the final epic structure, the PRD is not ready.
+
+### 6. Whole-product reconstruction test
+
+After creating all epics, the PM must reconstruct the product using only the PRD's epic structure.
+
+Ask: If a new person saw only this PRD, could they understand what makes this product this product?
+
+If the answer is no, stop and rework the decomposition.
+
+### 7. Upstream commitment coverage is mandatory
+
+Every material commitment from the inherited Product Definition, Feasibility Assessment, and Pre-Planning decision must be represented by an epic, explicitly embedded within an epic, explicitly marked as a cross-epic concern, or explicitly deferred/out of scope with a reason. No silent omission.
+
+Technical commitments must not be dropped simply because they are not user-facing.
+
+### 8. Capability loss test
+
+For every current capability, compare: UPSTREAM CAPABILITY → PRD EPIC → FRD BEHAVIOR → TRD DESIGN.
+
+If any link is missing, the Design Council package is incomplete.
+
+### 9. Product-value reconstruction test
+
+For every epic: state the product/user outcome; identify the capabilities it carries; identify why it belongs in the current version; identify what would be lost if removed.
+
+An epic justified only by 'the architecture needs it' is insufficient unless the enabling relationship to a confirmed product outcome is explicit.
+
+### 10. First-version integrity
+
+The PM must not create a V1 that is technically buildable but product-incoherent.
+
+V1 must be a meaningful product slice, not merely a collection of foundational engineering work.
+
+If the smallest coherent version requires several capabilities to work together, the PM must keep them together in the version boundary even when their implementation spans multiple technical layers.
+
+### 11. Product Definition remains authoritative
+
+The PM may structure and prioritize the approved product. The PM may not silently reinterpret a product concept into something easier to build.
+
+If the PM believes the product meaning itself is wrong, ambiguous, or impossible to preserve, it must raise a re-entry condition to the appropriate upstream stage rather than rewriting the product through epic decomposition.
+
+### 12. Independent verification
+
+The PM's own statement that all capabilities are covered is not sufficient.
+
+The Design Council progression gate must independently verify: every current capability has an epic mapping; every material upstream commitment has a disposition; every domain-defining concept survives; no epic exists solely because a technical layer exists; and the PRD, FRD, and TRD maintain traceability.
+
+A passing epic count is never evidence of completeness by itself.
+
+## PRD contract
+
+The PM's final product artifact is PRD.md.
+
+It must contain, at minimum:
+1. Product identity and purpose.
+2. Product problem and intended outcome.
+3. Target user/beneficiary and relevant buyer/operator context.
+4. Current version scope.
+5. Complete current-scope capability list.
+6. Domain-defining concepts and their product meaning.
+7. Epic definitions.
+8. Capability-to-epic traceability.
+9. Epic dependencies and enabling relationships.
+10. Version/iteration composition.
+11. Prioritization rationale.
+12. Explicitly deferred/out-of-scope items.
+13. Product-level risks and unresolved product decisions.
+14. Provenance back to inherited upstream documents.
+15. PRD completeness verdict.
+
+PRD.md must describe what product/version is being built and why. It must not contain technical architecture as a substitute for product structure.
+
+## Final PRD gate
+
+The PM cannot declare PRD_READY unless all of the following pass:
+- zero silent capability omissions;
+- zero silent upstream commitment omissions;
+- every domain-defining concept is preserved;
+- every epic has product-value justification;
+- every current epic has a version assignment;
+- dependencies are explicit;
+- deferred items have reasons;
+- no technical-layer-only epic is masquerading as product value;
+- PRD can reconstruct the intended product without relying on the conversation;
+- PRD → FRD → TRD traceability is established or explicitly marked pending until the Council completes its corresponding design work.
