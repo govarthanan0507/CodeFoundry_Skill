@@ -47,10 +47,12 @@ Idea (or a structured explanation, or existing code)
   → COUNCILS/Pre-Planning/        (4-role debate + decision)
   → [IF Ingestion produced CODE_DIGEST.md: SHARED/EXISTING_CODE_AUDIT_GATE.md
      — mandatory, blocks the next step until signed off]
-  → Epic Selection (AGENTS/Product-Manager/ decomposes into epics,
-     scored per SHARED/EPIC_SELECTION_CRITERIA.md)
-  → COUNCILS/Design-Council/      (7-role debate + independent critic,
-                                    per epic as it's picked up)
+  → COUNCILS/Design-Council/      (7 senior design roles + Product Manager;
+                                    capability-by-capability debate,
+                                    epic decomposition/selection, version boundary,
+                                    then FRD.md + TRD.md + epic structure)
+  → Planning / Product Owner      (turns the approved epic structure into
+                                    detailed stories and acceptance criteria)
   → [BEFORE Development starts on the first epic of V1, once per
      project: COUNCILS/Design-Council/WHOLE_PRODUCT_ARCHITECTURE_GATE.md
      — whole-roadmap coherence verdict across every epic in
