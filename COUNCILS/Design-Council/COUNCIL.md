@@ -108,7 +108,7 @@ observable behavior, still technology-agnostic):
 - integration points, environment, hosting/platform decision
   (consulting `TECH_REFERENCE_LIBRARY.md`), and deployment assumptions
 
-The Epic Structure / Selection record is the product-structure bridge into the two design documents. Both FRD and TRD, together with the epic structure, are what a story's Discovery/debate output
+The PRD.md Product Manager artifact is the authoritative product-structure bridge into the two design documents. The Council's final product package is PRD.md + FRD.md + TRD.md. Both FRD and TRD, together with PRD, are what a story's Discovery/debate output
 (`DISCOVERY_PROTOCOL.md`, `DEBATE_PROTOCOL.md`) resolves to at the
 epic/architecture level; a single story's own scoped decision
 (Discovery's `DISCOVERY.md`) is the same shape at a narrower grain and
