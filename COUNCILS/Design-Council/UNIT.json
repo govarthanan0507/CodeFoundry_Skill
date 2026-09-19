@@ -10,7 +10,8 @@
     "roles/frontend-architect.md",
     "roles/security-architect.md",
     "roles/ui-designer.md",
-    "roles/ux-designer.md"
+    "roles/ux-designer.md",
+    "roles/product-manager.md"
   ],
   "dependencies": [
     "SHARED/"
