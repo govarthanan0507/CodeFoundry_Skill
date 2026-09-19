@@ -1,0 +1,8 @@
+{
+  "schema_version": "2.0",
+  "unit_type": "council",
+  "name": "Pre-Planning Standalone",
+  "entrypoint": "START_HERE.md",
+  "members": ["Advocate", "Skeptic", "Value & Necessity Assessor", "Risk & Evidence Assessor"],
+  "dependencies": []
+}
